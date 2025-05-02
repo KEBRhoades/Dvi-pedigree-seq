@@ -1,11 +1,28 @@
-# Persimmon Pedigree Sequencing
-Kathleen Rhoades, last updated 4/22/25
+# Persimmon Pedigree Sequencing Project: Methods
 
 ## Sequencing Info
 
-Sequenced at Neochromosome fall of 2024. 2x150bp short read sequencing,
-targeted to 20x coverage. Need to get the sequencing platform and
-library prep info.
+From Meghan at Neochromosome 4/22:
+
+> DNA extraction: DNA was extracted from lyophilized leaf tissue punches
+> with the MagMAX Plant DNA Kit (Life Technologies cat# A32549), using
+> the manufacturer’s recommendations for processing samples in 96-well
+> plate format on the Kingfisher (ThermoFisher) instrument. The
+> following modification was made to the manufacturers protocol: PVP was
+> added to Lysis Buffer A to a final concentration of 1%.
+
+> NGS Library prep for Whole Genome Sequencing (WGS): Sample DNA was
+> normalized to ~1ng/µl per sample in a 96-well plate prior to Library
+> prep. The Illumina DNA Prep (M) Tagmentation (Illumina 20060059)
+> workflow was used for preparation of WGS libraries, with
+> modifications. Library prep reactions were miniaturized to 10µl, 6ng
+> of DNA per sample was used as input, and the resulting libraries were
+> eluted in 10µl Qiagen Buffer EB. Libraries were quantified using the
+> High-Sensitivity dsDNA Qubit Assay, and their fragment sizes estimated
+> using the High-Sensitivity D5000 Tapestation Assay.
+
+> Library sequencing: Sample libraries were sequenced to a depth of 20x
+> on the Illumina NovaSeqX Plus instrument, using PE 150bp format reads.
 
 ## Environment info
 
@@ -49,10 +66,14 @@ well, to add secondary alignments into the mix?
 
 #### Adding read groups after alignment like a doof
 
-`samtools addreplacerg -@ 4 -r "@RG\tID:britainsblue" -o britainsblue_t18_md_rg.Dv-EG.main.bam britainsblue_t18_md.Dv-EG.main.bam`
+`samtools addreplacerg -@ 4 -r "@RG\tID:G04_1\tPL:ILLUMINA\tLB:britainsblue\tSM:britainsblue" -o britainsblue_t18_md_rg.Dv-EG.main.bam britainsblue_t18_md.Dv-EG.main.bam`
 
 **I don’t think doing this after marking duplicates screws anything up
 but I will triple-check that.**
+
+Update 5/2: So long as there was only one RG per file (which there was),
+it’s okay that I did MarkDuplicates before adding read groups to some of
+these. [Biostar link](https://www.biostars.org/p/9487148/)
 
 ## Mark duplicates
 
